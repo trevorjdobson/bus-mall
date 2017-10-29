@@ -3,12 +3,12 @@
 //var zipCode = prompt('Thank you for participating in our product research, before we get started please enter your zip code.');
 //console.log('The respondent\'s zip code is: ' + zipCode);
 
-Product.allProducts = [];
+var allProducts = [];
 
 function Product(name, filepath) {
   this.name = name;
   this.filepath = filepath;
-  Product.allProducts.push(this);
+  allProducts.push(this);
 }
 
 new Product('Bag', 'img/bag.jpg');
@@ -36,22 +36,16 @@ var imgEl1 = document.getElementById('product1');
 var imgEl2 = document.getElementById('product2');
 var imgEl3 = document.getElementById('product3');
 
-imgEl1.addEventListener('click', randomProduct1);
-imgEl2.addEventListener('click', randomProduct2);
-imgEl3.addEventListener('click', randomProduct3);
+imgEl1.addEventListener('click', randomProduct);
+imgEl2.addEventListener('click', randomProduct);
+imgEl3.addEventListener('click', randomProduct);
 
-function randomProduct1() {
-  var randomIndex = Math.floor(Math.random() * Product.allProducts.length);
-  imgEl1.src = Product.allProducts[randomIndex].filepath;
+function randomProduct() {
+  var randomIndex1 = Math.floor(Math.random() * allProducts.length);
+  var randomIndex2 = Math.floor(Math.random() * allProducts.length);
+  var randomIndex3 = Math.floor(Math.random() * allProducts.length);
+  imgEl1.src = allProducts[randomIndex1].filepath;
+  imgEl2.src = allProducts[randomIndex2].filepath;
+  imgEl3.src = allProducts[randomIndex3].filepath;
 }
-function randomProduct2() {
-  var randomIndex = Math.floor(Math.random() * Product.allProducts.length);
-  imgEl2.src = Product.allProducts[randomIndex].filepath;
-}
-function randomProduct3() {
-  var randomIndex = Math.floor(Math.random() * Product.allProducts.length);
-  imgEl3.src = Product.allProducts[randomIndex].filepath;
-}
-randomProduct1();
-randomProduct2();
-randomProduct3();
+randomProduct();
