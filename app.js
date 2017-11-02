@@ -4,6 +4,23 @@
 //console.log('The respondent\'s zip code is: ' + zipCode);
 
 var allProducts = [];
+var productCounter = {};
+var randomIndex1;
+var randomIndex2;
+var randomIndex3;
+var previousProduct1;
+var previousProduct2;
+var previousProduct3;
+var totalClicks = 0;
+
+function productCounterPopulate(name){
+  if(productCounter.hasOwnProperty(name)){
+    productCounter[name] += 1;
+  }
+  else{
+    productCounter[name] = 1;
+  }
+}
 
 function Product(name, filepath) {
   this.name = name;
@@ -40,12 +57,54 @@ imgEl1.addEventListener('click', randomProduct);
 imgEl2.addEventListener('click', randomProduct);
 imgEl3.addEventListener('click', randomProduct);
 
-function randomProduct() {
+function randomProduct1() {
+  if(totalClicks > 24){
+    imgEl1.removeEventListener('click', randomProduct);
+    showData();
+  }
   var randomIndex1 = Math.floor(Math.random() * allProducts.length);
+  while(randomIndex1 === previousProduct1 || randomIndex1 === previousProduct2 || randomIndex1 === previousProduct3){
+    randomIndex1 = Math.floor(Math.random() * allProducts.length);
+    imgEl1.src = allProducts[randomIndex1].filepath;
+    productCounterPopulate(allProducts[randomIndex1].name);
+  }
+}
+function randomProduct2() {
+  if(totalClicks > 24){
+    imgEl2.removeEventListener('click', randomProduct);
+    showData();
+  }
   var randomIndex2 = Math.floor(Math.random() * allProducts.length);
+  while(randomIndex2 === randomIndex1 || randomIndex2 === previousProduct1 || randomIndex2 === previousProduct2 ||  randomIndex2 === previousProduct3){
+    randomIndex2 = Math.floor(Math.random() * allProducts.length);
+    imgEl2.src = allProducts[randomIndex2].filepath;
+    productCounterPopulate(allProducts[randomIndex2].name);
+  }
+}
+function randomProduct3() {
+  if(totalClicks > 24){
+    imgEl3.removeEventListener('click', randomProduct);
+    showData();
+  }
   var randomIndex3 = Math.floor(Math.random() * allProducts.length);
-  imgEl1.src = allProducts[randomIndex1].filepath;
-  imgEl2.src = allProducts[randomIndex2].filepath;
-  imgEl3.src = allProducts[randomIndex3].filepath;
+  while(randomIndex3 === randomIndex1 || randomIndex3 === randomIndex2 || randomIndex3 === previousProduct1 || randomIndex3 === previousProduct2 || randomIndex3 === previousProduct3){
+    randomIndex3 = Math.floor(Math.random() * allProducts.length);
+    imgEl3.src = allProducts[randomIndex3].filepath;
+    productCounterPopulate(allProducts[randomIndex3].name);
+  }
+}
+
+function randomProduct(){
+  randomProduct1();
+  randomProduct2();
+  randomProduct3();
+  previousProduct1 = randomIndex1;
+  previousProduct2 = randomIndex2;
+  previousProduct3 = randomIndex3;
+  totalClicks++;
 }
 randomProduct();
+
+function showData() {
+
+}
