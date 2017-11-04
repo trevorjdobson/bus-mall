@@ -63,6 +63,7 @@ function addTally3(){
 function randomProduct1() {
   if(totalClicks > 24){
     imgEl1.removeEventListener('click', randomProduct);
+    imgEl1.removeEventListener('click', addTally1);
     showData();
   }
   var randomIndex1 = Math.floor(Math.random() * allProducts.length);
@@ -70,11 +71,12 @@ function randomProduct1() {
     randomIndex1 = Math.floor(Math.random() * allProducts.length);
   }
   imgEl1.src = allProducts[randomIndex1].filepath;
-  allProducts[randomIndex1].clicks++;
+  allProducts[randomIndex1].shown++;
 }
 function randomProduct2() {
   if(totalClicks > 24){
     imgEl2.removeEventListener('click', randomProduct);
+    imgEl1.removeEventListener('click', addTally2);
     showData();
   }
   var randomIndex2 = Math.floor(Math.random() * allProducts.length);
@@ -82,11 +84,12 @@ function randomProduct2() {
     randomIndex2 = Math.floor(Math.random() * allProducts.length);
   }
   imgEl2.src = allProducts[randomIndex2].filepath;
-  allProducts[randomIndex2].clicks++;
+  allProducts[randomIndex2].shown++;
 }
 function randomProduct3() {
   if(totalClicks > 24){
     imgEl3.removeEventListener('click', randomProduct);
+    imgEl1.removeEventListener('click', addTally3);
     showData();
   }
   var randomIndex3 = Math.floor(Math.random() * allProducts.length);
@@ -94,7 +97,7 @@ function randomProduct3() {
     randomIndex3 = Math.floor(Math.random() * allProducts.length);
   }
   imgEl3.src = allProducts[randomIndex3].filepath;
-  allProducts[randomIndex3].clicks++;
+  allProducts[randomIndex3].shown++;
 }
 
 function randomProduct(){
