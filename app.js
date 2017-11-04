@@ -1,10 +1,6 @@
 'use strict';
 
-//var zipCode = prompt('Thank you for participating in our product research, before we get started please enter your zip code.');
-//console.log('The respondent\'s zip code is: ' + zipCode);
-
 var allProducts = [];
-var productCounter = {};
 var randomIndex1;
 var randomIndex2;
 var randomIndex3;
@@ -13,19 +9,12 @@ var previousProduct2;
 var previousProduct3;
 var totalClicks = 0;
 
-function productCounterPopulate(name){
-  if(productCounter.hasOwnProperty(name)){
-    productCounter[name] += 1;
-  }
-  else{
-    productCounter[name] = 1;
-  }
-}
-
 function Product(name, filepath) {
   this.name = name;
   this.filepath = filepath;
   allProducts.push(this);
+  this.clicks = 0;
+  this.shown = 0;
 }
 
 new Product('Bag', 'img/bag.jpg');
@@ -54,8 +43,22 @@ var imgEl2 = document.getElementById('product2');
 var imgEl3 = document.getElementById('product3');
 
 imgEl1.addEventListener('click', randomProduct);
+imgEl1.addEventListener('click', addTally1);
 imgEl2.addEventListener('click', randomProduct);
+imgEl2.addEventListener('click', addTally2);
 imgEl3.addEventListener('click', randomProduct);
+imgEl3.addEventListener('click', addTally3);
+
+function addTally1(){
+  allProducts[randomIndex1].clicks++;
+}
+
+function addTally2(){
+  allProducts[randomIndex2].clicks++;
+}
+function addTally3(){
+  allProducts[randomIndex3].clicks++;
+}
 
 function randomProduct1() {
   if(totalClicks > 24){
@@ -65,9 +68,9 @@ function randomProduct1() {
   var randomIndex1 = Math.floor(Math.random() * allProducts.length);
   while(randomIndex1 === previousProduct1 || randomIndex1 === previousProduct2 || randomIndex1 === previousProduct3){
     randomIndex1 = Math.floor(Math.random() * allProducts.length);
-    imgEl1.src = allProducts[randomIndex1].filepath;
-    productCounterPopulate(allProducts[randomIndex1].name);
   }
+  imgEl1.src = allProducts[randomIndex1].filepath;
+  allProducts[randomIndex1].clicks++;
 }
 function randomProduct2() {
   if(totalClicks > 24){
@@ -75,11 +78,11 @@ function randomProduct2() {
     showData();
   }
   var randomIndex2 = Math.floor(Math.random() * allProducts.length);
-  while(randomIndex2 === randomIndex1 || randomIndex2 === previousProduct1 || randomIndex2 === previousProduct2 ||  randomIndex2 === previousProduct3){
+  while(randomIndex2 === randomIndex1 || randomIndex2 === previousProduct1 || randomIndex2 === previousProduct2 || randomIndex2 === previousProduct3){
     randomIndex2 = Math.floor(Math.random() * allProducts.length);
-    imgEl2.src = allProducts[randomIndex2].filepath;
-    productCounterPopulate(allProducts[randomIndex2].name);
   }
+  imgEl2.src = allProducts[randomIndex2].filepath;
+  allProducts[randomIndex2].clicks++;
 }
 function randomProduct3() {
   if(totalClicks > 24){
@@ -89,9 +92,9 @@ function randomProduct3() {
   var randomIndex3 = Math.floor(Math.random() * allProducts.length);
   while(randomIndex3 === randomIndex1 || randomIndex3 === randomIndex2 || randomIndex3 === previousProduct1 || randomIndex3 === previousProduct2 || randomIndex3 === previousProduct3){
     randomIndex3 = Math.floor(Math.random() * allProducts.length);
-    imgEl3.src = allProducts[randomIndex3].filepath;
-    productCounterPopulate(allProducts[randomIndex3].name);
   }
+  imgEl3.src = allProducts[randomIndex3].filepath;
+  allProducts[randomIndex3].clicks++;
 }
 
 function randomProduct(){
@@ -106,5 +109,10 @@ function randomProduct(){
 randomProduct();
 
 function showData() {
-
+  var ulEl = document.getElementById('results');
+  for(var i = 0; i < allProducts.length; i++) {
+    var liEl = document.createElement('li');
+    liEl.textcontent = allProducts[i].name + 'has ' + allProducts[i].clicks + 'clicks';
+    ulEl.appendChild(liEl);
+  }
 }
