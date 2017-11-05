@@ -139,3 +139,7 @@ function showData() {
     }
   });
 }
+
+localStorage.setItem("allProducts", JSON.stringify(allProducts));
+
+JSON.parse(localStorage.getItem("allProducts"));
