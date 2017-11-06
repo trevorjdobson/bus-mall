@@ -48,25 +48,38 @@ imgEl2.addEventListener('click', addTally2);
 imgEl3.addEventListener('click', addTally3);
 
 function addTally1(){
+  if(totalClicks > 24){
+    imgEl1.removeEventListener('click', addTally1);
+    imgEl2.removeEventListener('click', addTally2);
+    imgEl3.removeEventListener('click', addTally3);
+    showData();
+  }
   allProducts[allProducts.indexOf(currentProducts[0])].clicks++;
   randomProduct();
 }
 
 function addTally2(){
+  if(totalClicks > 24){
+    imgEl1.removeEventListener('click', addTally1);
+    imgEl2.removeEventListener('click', addTally2);
+    imgEl3.removeEventListener('click', addTally3);
+    showData();
+  }
   allProducts[allProducts.indexOf(currentProducts[1])].clicks++;
   randomProduct();
 }
 function addTally3(){
+  if(totalClicks > 24){
+    imgEl1.removeEventListener('click', addTally1);
+    imgEl2.removeEventListener('click', addTally2);
+    imgEl3.removeEventListener('click', addTally3);
+    showData();
+  }
   allProducts[allProducts.indexOf(currentProducts[2])].clicks++;
   randomProduct();
 }
 
 function randomProduct1() {
-  if(totalClicks > 24){
-    imgEl1.removeEventListener('click', randomProduct);
-    imgEl1.removeEventListener('click', addTally1);
-    showData();
-  }
   var randomIndex1 = Math.floor(Math.random() * allProducts.length);
   console.log('randomIndex1', randomIndex1);
   while(randomIndex1 === previousProduct1 || randomIndex1 === previousProduct2 || randomIndex1 === previousProduct3){
@@ -80,11 +93,6 @@ function randomProduct1() {
 }
 function randomProduct2() {
   var randomIndex1 = allProducts.indexOf(currentProducts[0]);
-  if(totalClicks > 24){
-    imgEl2.removeEventListener('click', randomProduct);
-    imgEl1.removeEventListener('click', addTally2);
-    showData();
-  }
   var randomIndex2 = Math.floor(Math.random() * allProducts.length);
   while(randomIndex2 === randomIndex1 || randomIndex2 === previousProduct1 || randomIndex2 === previousProduct2 || randomIndex2 === previousProduct3){
     console.log('HIT 2nd LOOP');
@@ -98,11 +106,6 @@ function randomProduct2() {
 function randomProduct3() {
   var randomIndex1 = allProducts.indexOf(currentProducts[0]);
   var randomIndex2 = allProducts.indexOf(currentProducts[1]);
-  if(totalClicks > 24){
-    imgEl3.removeEventListener('click', randomProduct);
-    imgEl1.removeEventListener('click', addTally3);
-    showData();
-  }
   var randomIndex3 = Math.floor(Math.random() * allProducts.length);
   while(randomIndex3 === randomIndex1 || randomIndex3 === randomIndex2 || randomIndex3 === previousProduct1 || randomIndex3 === previousProduct2 || randomIndex3 === previousProduct3){
     console.log('HIT 3rd LOOP');
